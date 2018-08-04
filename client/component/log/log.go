@@ -4,11 +4,11 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/gofunky/goplayspace/client/api"
+	"github.com/gofunky/goplayspace/client/js/document"
 	"github.com/gopherjs/gopherjs/js"
 	"github.com/gopherjs/vecty"
 	"github.com/gopherjs/vecty/elem"
-	"github.com/iafan/goplayspace/client/api"
-	"github.com/iafan/goplayspace/client/js/document"
 )
 
 var hour = 60 * time.Minute

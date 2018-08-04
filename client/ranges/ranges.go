@@ -4,7 +4,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/iafan/goplayspace/client/js/console"
+	"github.com/gofunky/goplayspace/client/js/console"
 )
 
 // LineRange represents the range of selected lines

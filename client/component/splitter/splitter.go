@@ -3,11 +3,11 @@ package splitter
 import (
 	"strconv"
 
+	"github.com/gofunky/goplayspace/client/js/document"
 	"github.com/gopherjs/gopherjs/js"
 	"github.com/gopherjs/vecty"
 	"github.com/gopherjs/vecty/elem"
 	"github.com/gopherjs/vecty/event"
-	"github.com/iafan/goplayspace/client/js/document"
 )
 
 // Splitter type definitions

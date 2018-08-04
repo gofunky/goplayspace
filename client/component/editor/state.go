@@ -1,6 +1,6 @@
 package editor
 
-import "github.com/iafan/goplayspace/client/component/editor/undo"
+import "github.com/gofunky/goplayspace/client/component/editor/undo"
 
 func (ed *Editor) getStateAsUndoEntry() *undo.Entry {
 	return &undo.Entry{

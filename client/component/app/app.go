@@ -17,21 +17,21 @@ import (
 	"github.com/gopherjs/vecty/event"
 	"github.com/iafan/syntaxhighlight"
 
-	"github.com/iafan/goplayspace/client/api"
-	"github.com/iafan/goplayspace/client/component/drawboard"
-	"github.com/iafan/goplayspace/client/component/editor"
-	"github.com/iafan/goplayspace/client/component/editor/undo"
-	"github.com/iafan/goplayspace/client/component/help"
-	"github.com/iafan/goplayspace/client/component/log"
-	"github.com/iafan/goplayspace/client/component/settings"
-	"github.com/iafan/goplayspace/client/component/splitter"
-	"github.com/iafan/goplayspace/client/draw"
-	"github.com/iafan/goplayspace/client/hash"
-	"github.com/iafan/goplayspace/client/js/console"
-	"github.com/iafan/goplayspace/client/js/localstorage"
-	"github.com/iafan/goplayspace/client/js/window"
-	"github.com/iafan/goplayspace/client/ranges"
-	"github.com/iafan/goplayspace/client/util"
+	"github.com/gofunky/goplayspace/client/api"
+	"github.com/gofunky/goplayspace/client/component/drawboard"
+	"github.com/gofunky/goplayspace/client/component/editor"
+	"github.com/gofunky/goplayspace/client/component/editor/undo"
+	"github.com/gofunky/goplayspace/client/component/help"
+	"github.com/gofunky/goplayspace/client/component/log"
+	"github.com/gofunky/goplayspace/client/component/settings"
+	"github.com/gofunky/goplayspace/client/component/splitter"
+	"github.com/gofunky/goplayspace/client/draw"
+	"github.com/gofunky/goplayspace/client/hash"
+	"github.com/gofunky/goplayspace/client/js/console"
+	"github.com/gofunky/goplayspace/client/js/localstorage"
+	"github.com/gofunky/goplayspace/client/js/window"
+	"github.com/gofunky/goplayspace/client/ranges"
+	"github.com/gofunky/goplayspace/client/util"
 )
 
 const maxUndoStackSize uint = 50
@@ -127,8 +127,6 @@ func (a *Application) onEditorKeyDown(e *vecty.Event) {
 
 var compileErrorLineExtractorR = regexp.MustCompile(`\/main\.go:(\d+):\s`)
 var fmtErrorLineExtractorR = regexp.MustCompile(`(?m)^(\d+):(\d+):\s`)
-
-var domMonitorInterval = 5 * time.Millisecond
 
 func (a *Application) onLineSelChange(state string) {
 	if a.isLoading || a.Hash.Ranges == state {

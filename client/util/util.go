@@ -4,7 +4,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/iafan/goplayspace/client/js/navigator"
+	"github.com/gofunky/goplayspace/client/js/navigator"
 )
 
 // Schedule implements a deferred function call

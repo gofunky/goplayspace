@@ -5,8 +5,8 @@ import (
 
 	"unicode/utf16"
 
+	"github.com/gofunky/goplayspace/client/js/str"
 	"github.com/gopherjs/gopherjs/js"
-	"github.com/iafan/goplayspace/client/js/str"
 )
 
 // Textarea provides wrapper functions for <textarea> object

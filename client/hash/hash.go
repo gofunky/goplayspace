@@ -3,8 +3,8 @@ package hash
 import (
 	"strings"
 
+	"github.com/gofunky/goplayspace/client/js/history"
 	"github.com/gopherjs/gopherjs/js"
-	"github.com/iafan/goplayspace/client/js/history"
 )
 
 // Hash contains the state parsed from URL hash

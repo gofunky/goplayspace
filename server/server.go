@@ -47,6 +47,10 @@ type CompileResponse struct {
 	Errors string
 }
 
+type serverContext struct {
+	backend string
+}
+
 func gzPath(path string) string {
 	return staticDir + path + ".gz"
 }
@@ -54,6 +58,7 @@ func gzPath(path string) string {
 func main() {
 	port := flag.Int("p", 8080, "port to listen at")
 	help := flag.Bool("h", false, "show this help")
+	server := flag.String("s", "https://play.golang.org", "custom playground server adress")
 
 	flag.Parse()
 
@@ -62,24 +67,26 @@ func main() {
 		return
 	}
 
+	c := serverContext{*server}
+
 	log.Printf("Listening on http://localhost:%d/", *port)
 
 	http.Handle("/", http.FileServer(http.Dir(staticDir)))
-	http.HandleFunc("/compile", compileHandler)
-	http.HandleFunc("/share", shareHandler)
-	http.HandleFunc("/load", loadHandler)
+	http.HandleFunc("/compile", c.compileHandler)
+	http.HandleFunc("/share", c.shareHandler)
+	http.HandleFunc("/load", c.loadHandler)
 
 	if _, err := os.Stat(gzPath("/client.js")); err == nil {
-		http.HandleFunc("/client.js", gzHandler)
+		http.HandleFunc("/client.js", c.gzHandler)
 	}
 	if _, err := os.Stat(gzPath("/client.js.map")); err == nil {
-		http.HandleFunc("/client.js.map", gzHandler)
+		http.HandleFunc("/client.js.map", c.gzHandler)
 	}
 
 	log.Fatal(http.ListenAndServe(":"+strconv.Itoa(*port), nil))
 }
 
-func doRequest(method, url, contentType string, body io.Reader) ([]byte, error) {
+func (c *serverContext) doRequest(method, url, contentType string, body io.Reader) ([]byte, error) {
 	req, err := http.NewRequest(method, url, body)
 	if err != nil {
 		return nil, err
@@ -103,31 +110,31 @@ func doRequest(method, url, contentType string, body io.Reader) ([]byte, error) 
 	return bodyBytes.Bytes(), nil
 }
 
-func postForm(url string, data url.Values) ([]byte, error) {
-	return doRequest("POST", url, "application/x-www-form-urlencoded", strings.NewReader(data.Encode()))
+func (c *serverContext) postForm(url string, data url.Values) ([]byte, error) {
+	return c.doRequest("POST", url, "application/x-www-form-urlencoded", strings.NewReader(data.Encode()))
 }
 
-func runShare(body io.Reader) ([]byte, error) {
-	return doRequest("POST", "https://play.golang.org/share", "text/plain", body)
+func (c *serverContext) runShare(body io.Reader) ([]byte, error) {
+	return c.doRequest("POST", strings.Join([]string{c.backend, "share"}, "/"), "text/plain", body)
 }
 
-func runImports(body *string) ([]byte, error) {
+func (c *serverContext) runImports(body *string) ([]byte, error) {
 	form := url.Values{}
 	form.Add("imports", "true")
 	form.Add("body", *body)
 
-	return postForm("https://play.golang.org/fmt", form)
+	return c.postForm(strings.Join([]string{c.backend, "fmt"}, "/"), form)
 }
 
-func runCompile(body *string) ([]byte, error) {
+func (c *serverContext) runCompile(body *string) ([]byte, error) {
 	form := url.Values{}
 	form.Add("body", *body)
 	form.Add("version", "2")
 
-	return postForm("https://play.golang.org/compile", form)
+	return c.postForm(strings.Join([]string{c.backend, "compile"}, "/"), form)
 }
 
-func compileHandler(w http.ResponseWriter, r *http.Request) {
+func (c *serverContext) compileHandler(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 
 	if r.Method != http.MethodPost {
@@ -143,7 +150,7 @@ func compileHandler(w http.ResponseWriter, r *http.Request) {
 
 	body := string(bodyBytes)
 
-	bodyBytes, err = runImports(&body)
+	bodyBytes, err = c.runImports(&body)
 	if err != nil {
 		log.Printf("runImports() error: %v", err)
 		http.Error(w, "Failed to format source code", http.StatusInternalServerError)
@@ -166,7 +173,7 @@ func compileHandler(w http.ResponseWriter, r *http.Request) {
 
 	bodyUpdated := fmtResponse.Body != body
 
-	bodyBytes, err = runCompile(&fmtResponse.Body)
+	bodyBytes, err = c.runCompile(&fmtResponse.Body)
 	if err != nil {
 		log.Printf("runCompile() error: %v", err)
 		http.Error(w, "Failed to compile source code", http.StatusInternalServerError)
@@ -201,14 +208,14 @@ func compileHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write(bodyBytes)
 }
 
-func gzHandler(w http.ResponseWriter, r *http.Request) {
+func (c *serverContext) gzHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/javascript")
 	w.Header().Set("Content-Encoding", "gzip")
 	http.ServeFile(w, r, gzPath(r.URL.Path))
 	return
 }
 
-func shareHandler(w http.ResponseWriter, r *http.Request) {
+func (c *serverContext) shareHandler(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 
 	if r.Method != http.MethodPost {
@@ -216,7 +223,7 @@ func shareHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	bodyBytes, err := runShare(r.Body)
+	bodyBytes, err := c.runShare(r.Body)
 	if err != nil {
 		http.Error(w, "Failed to send share request", http.StatusInternalServerError)
 		return
@@ -225,7 +232,7 @@ func shareHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write(bodyBytes)
 }
 
-func loadHandler(w http.ResponseWriter, r *http.Request) {
+func (c *serverContext) loadHandler(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 
 	if r.Method != http.MethodGet {
@@ -233,7 +240,7 @@ func loadHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	response, err := http.Get("https://play.golang.org/p/" + r.URL.RawQuery + ".go")
+	response, err := http.Get(strings.Join([]string{c.backend, "p", r.URL.RawQuery + ".go"}, "/"))
 	if err != nil {
 		http.Error(w, "Failed to load snippet", http.StatusInternalServerError)
 		return

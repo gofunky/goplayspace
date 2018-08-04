@@ -11,12 +11,12 @@ import (
 	"github.com/gopherjs/vecty/elem"
 	"github.com/gopherjs/vecty/event"
 
-	"github.com/iafan/goplayspace/client/component/editor/undo"
-	"github.com/iafan/goplayspace/client/js/console"
-	"github.com/iafan/goplayspace/client/js/document"
-	"github.com/iafan/goplayspace/client/js/textarea"
-	"github.com/iafan/goplayspace/client/ranges"
-	"github.com/iafan/goplayspace/client/util"
+	"github.com/gofunky/goplayspace/client/component/editor/undo"
+	"github.com/gofunky/goplayspace/client/js/console"
+	"github.com/gofunky/goplayspace/client/js/document"
+	"github.com/gofunky/goplayspace/client/js/textarea"
+	"github.com/gofunky/goplayspace/client/ranges"
+	"github.com/gofunky/goplayspace/client/util"
 )
 
 // saveStateTimeout defines how much time should pass after the last

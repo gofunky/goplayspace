@@ -10,11 +10,11 @@ import (
 	"github.com/gopherjs/vecty/elem"
 	"github.com/gopherjs/vecty/event"
 
-	"github.com/iafan/goplayspace/client/draw"
-	"github.com/iafan/goplayspace/client/js/canvas"
-	"github.com/iafan/goplayspace/client/js/document"
-	"github.com/iafan/goplayspace/client/js/window"
-	"github.com/iafan/goplayspace/client/util"
+	"github.com/gofunky/goplayspace/client/draw"
+	"github.com/gofunky/goplayspace/client/js/canvas"
+	"github.com/gofunky/goplayspace/client/js/document"
+	"github.com/gofunky/goplayspace/client/js/window"
+	"github.com/gofunky/goplayspace/client/util"
 )
 
 const (

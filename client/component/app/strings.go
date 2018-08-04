@@ -12,7 +12,7 @@ var helpHTML = `
 	<a href="https://github.com/gopherjs/vecty">Vecty</a>, a React-like frontend library for GopherJS).</p>
 
 	<p>
-		<a href="https://github.com/iafan/goplayspace">View source code on GitHub</a>
+		<a href="https://github.com/gofunky/goplayspace">View source code on GitHub</a>
 		<iframe class="github-button" src="https://ghbtns.com/github-btn.html?user=iafan&amp;repo=goplayspace&amp;type=watch&amp;count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe>
 	</p>
 
@@ -42,7 +42,7 @@ var helpHTML = `
 
 	<h2>Feedback</h2>
 
-	<p>Feel free to provide your feedback, suggestions or bug reports in the <a href="https://github.com/iafan/goplayspace/issues">official bug tracker</a>, or message <a href="https://gophers.slack.com/messages/@afan/">@afan</a> in the <a href="https://gophersinvite.herokuapp.com/">Gophers Slack channel</a>.</p>
+	<p>Feel free to provide your feedback, suggestions or bug reports in the <a href="https://github.com/gofunky/goplayspace/issues">official bug tracker</a>, or message <a href="https://gophers.slack.com/messages/@afan/">@afan</a> in the <a href="https://gophersinvite.herokuapp.com/">Gophers Slack channel</a>.</p>
 `
 
 var drawHelpHTML = `
@@ -85,7 +85,7 @@ var drawHelpHTML = `
 
 	<h2>Feedback</h2>
 
-	<p>Feel free to provide your feedback, suggestions or bug reports in the <a href="https://github.com/iafan/goplayspace/issues">official bug tracker</a>, or message <a href="https://gophers.slack.com/messages/@afan/">@afan</a> in the <a href="https://gophersinvite.herokuapp.com/">Gophers Slack channel</a>.</p>
+	<p>Feel free to provide your feedback, suggestions or bug reports in the <a href="https://github.com/gofunky/goplayspace/issues">official bug tracker</a>, or message <a href="https://gophers.slack.com/messages/@afan/">@afan</a> in the <a href="https://gophersinvite.herokuapp.com/">Gophers Slack channel</a>.</p>
 
 `
 

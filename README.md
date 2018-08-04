@@ -1,6 +1,11 @@
 About Go Play Space
 ===================
 
+[![Build Status](https://travis-ci.org/gofunky/goplayspace.svg?branch=master)](https://travis-ci.org/gofunky/goplayspace)
+[![Go Report Card](https://goreportcard.com/badge/github.com/gofunky/goplayspace)](https://goreportcard.com/report/github.com/gofunky/goplayspace)
+[![GoDoc](https://godoc.org/github.com/gofunky/goplayspace?status.svg)](https://godoc.org/github.com/gofunky/goplayspace)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/f2b0932837e54b4d8c654bc09ba6ca39)](https://www.codacy.com/app/gofunky/goplayspace?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=gofunky/goplayspace&amp;utm_campaign=Badge_Grade)
+
 Go Play Space is an experimental alternative [Go Playground](https://play.golang.org)
 frontend that is built in Go itself (using [GopherJS](https://github.com/gopherjs/gopherjs)),
 a Go&rarr;JavaScript transpiler, and [Vecty](https://github.com/gopherjs/vecty),
@@ -44,12 +49,12 @@ Running Locally
 Download the package:
 
 ```sh
-$ go get -u github.com/iafan/goplayspace/...
+$ go get -u github.com/gofunky/goplayspace/...
 ```
 
 Compile both client-side code and server binary:
 ```sh
-$ cd $GOPATH/src/github.com/iafan/goplayspace/bin
+$ cd $GOPATH/src/github.com/gofunky/goplayspace/bin
 $ ./build-client && ./build-server
 ```
 
@@ -69,7 +74,7 @@ If you have trouble compiling the client, please make sure you have the latest v
 Feedback
 --------
 
-Feel free to provide your feedback, suggestions or bug reports here in the <a href="https://github.com/iafan/goplayspace/issues">bug tracker</a>, or message [@afan](https://gophers.slack.com/messages/@afan/) in the [Gophers Slack channel](https://gophersinvite.herokuapp.com/).
+Feel free to provide your feedback, suggestions or bug reports here in the <a href="https://github.com/gofunky/goplayspace/issues">bug tracker</a>, or message [@afan](https://gophers.slack.com/messages/@afan/) in the [Gophers Slack channel](https://gophersinvite.herokuapp.com/).
 
 Credits
 -------
